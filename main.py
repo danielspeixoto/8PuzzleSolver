@@ -25,6 +25,9 @@ import pygtrie as trie
 # 7
 # 6
 # 5
+#
+# Dependencies:
+# - pygtrie: pip install pygtrie
 ########################################################################################################################
 
 initial_config = [[0] * 3 for i in range(3)]
