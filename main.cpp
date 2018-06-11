@@ -140,8 +140,8 @@ void solve(const State& initial_state, const bool detailed) {
         cout<<"No solution."<<endl;
     } else {
         cout<<"Solution in "<<final_node->distance<<" step(s)."<<endl;
-        cout<<"States explored: "<<explored_states<<"."<<endl;
         if (detailed) {
+            cout<<"States explored: "<<explored_states<<"."<<endl;
             for (Node* node : retrieve_history(final_node)) {
                 cout<<"---"<<endl;
                 cout<<node->state.to_readable_string();
