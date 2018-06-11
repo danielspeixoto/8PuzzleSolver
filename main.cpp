@@ -33,7 +33,7 @@ bool State::populate_from_string(State& state, const string& str) {
     if (str.size() != 9)
         return false;
     for (int i = 0; i < 9; ++i) {
-        if (str[i] < '0' || str[i] > '9')
+        if (str[i] < '0' || str[i] > '8')
             return false;
         state.grid[i / 3][i % 3] = str[i] - '0';
     }
