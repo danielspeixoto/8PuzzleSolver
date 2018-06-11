@@ -101,6 +101,7 @@ void solve(const State& initial_state, const bool detailed) {
     Node *initial_node = new Node{nullptr, initial_state, 0};
     node_pool.emplace_back(initial_node);
     Node *final_node = nullptr;
+    int explored_states = 0;
     if (initial_state.is_goal()) {
         final_node = initial_node;
     } else {
@@ -111,6 +112,11 @@ void solve(const State& initial_state, const bool detailed) {
         while (!q.empty()) {
             Node *node = q.front();
             q.pop();
+            //if (detailed) {
+                //cout<<"Exploring state:"<<endl;
+                //cout<<node->state.to_readable_string();
+            //}
+            ++explored_states;
 
             for (const State& new_state : get_neighbors(node->state)) {
                 if (visited.insert(new_state).second) {
@@ -134,6 +140,7 @@ void solve(const State& initial_state, const bool detailed) {
         cout<<"No solution."<<endl;
     } else {
         cout<<"Solution in "<<final_node->distance<<" step(s)."<<endl;
+        cout<<"States explored: "<<explored_states<<"."<<endl;
         if (detailed) {
             for (Node* node : retrieve_history(final_node)) {
                 cout<<"---"<<endl;
