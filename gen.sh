@@ -20,3 +20,4 @@ while read line; do
         exit 1
     fi
 done < all_grids
+#done <<< $(shuf < all_grids)
