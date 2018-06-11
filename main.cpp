@@ -96,7 +96,7 @@ vector<Node*> retrieve_history(Node* node) {
     return history;
 }
 
-void solve(const State& initial_state, const bool detailed) {
+void solve(const State& initial_state, const bool detailed_output) {
     vector<unique_ptr<Node>> node_pool;
     Node *initial_node = new Node{nullptr, initial_state, 0};
     node_pool.emplace_back(initial_node);
@@ -112,7 +112,7 @@ void solve(const State& initial_state, const bool detailed) {
         while (!q.empty()) {
             Node *node = q.front();
             q.pop();
-            //if (detailed) {
+            //if (detailed_output) {
                 //cout<<"Exploring state:"<<endl;
                 //cout<<node->state.to_readable_string();
             //}
@@ -140,7 +140,7 @@ void solve(const State& initial_state, const bool detailed) {
         cout<<"No solution."<<endl;
     } else {
         cout<<"Solution in "<<final_node->distance<<" step(s)."<<endl;
-        if (detailed) {
+        if (detailed_output) {
             cout<<"States explored: "<<explored_states<<"."<<endl;
             for (Node* node : retrieve_history(final_node)) {
                 cout<<"---"<<endl;
@@ -152,9 +152,9 @@ void solve(const State& initial_state, const bool detailed) {
 
 int32_t main(int argc, char** argv) {
     // Read command-line arguments
-    bool detailed = false;
+    bool detailed_output = false;
     if (argc == 2 && string(argv[1]) == "detailed") {
-        detailed = true;
+        detailed_output = true;
     }
     // Read input
     string line;
@@ -165,5 +165,5 @@ int32_t main(int argc, char** argv) {
         return 1;
     }
     // Solve instance
-    solve(initial_state, detailed);
+    solve(initial_state, detailed_output);
 }
