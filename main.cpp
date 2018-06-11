@@ -81,12 +81,22 @@ vector<State> get_neighbors(const State& state) {
 }
 
 struct Node {
-    const Node *const parent;
+    Node *const parent;
     const State state;
     const int distance;
 };
 
-void solve(const State& initial_state) {
+vector<Node*> retrieve_history(Node* node) {
+    vector<Node*> history;
+    while (node != nullptr) {
+        history.push_back(node);
+        node = node->parent;
+    }
+    reverse(history.begin(), history.end());
+    return history;
+}
+
+void solve(const State& initial_state, const bool detailed) {
     vector<unique_ptr<Node>> node_pool;
     Node *initial_node = new Node{nullptr, initial_state, 0};
     node_pool.emplace_back(initial_node);
@@ -124,10 +134,22 @@ void solve(const State& initial_state) {
         cout<<"No solution."<<endl;
     } else {
         cout<<"Solution in "<<final_node->distance<<" step(s)."<<endl;
+        if (detailed) {
+            for (Node* node : retrieve_history(final_node)) {
+                cout<<"---"<<endl;
+                cout<<node->state.to_readable_string();
+            }
+        }
     }
 }
 
-int32_t main() {
+int32_t main(int argc, char** argv) {
+    // Read command-line arguments
+    bool detailed = false;
+    if (argc == 2 && string(argv[1]) == "detailed") {
+        detailed = true;
+    }
+    // Read input
     string line;
     cin>>line;
     State initial_state;
@@ -135,5 +157,6 @@ int32_t main() {
         cerr<<"Invalid input."<<endl;
         return 1;
     }
-    solve(initial_state);
+    // Solve instance
+    solve(initial_state, detailed);
 }
