@@ -1,3 +1,5 @@
+#!/usr/bin/python3
+
 from Config import Config
 import sys
 import pygtrie as trie
