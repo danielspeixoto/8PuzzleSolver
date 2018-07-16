@@ -103,7 +103,8 @@ def solve(initial_state, detailed_output):
         while frontier:
             # Retrieve node from the frontier
             node = heapq.heappop(frontier)
-            if node.state.to_string() in explored:
+            node_str = node.state.to_string()
+            if node_str in explored:
                 continue
             # Mark node as explored
             explored |= set([node_str])
