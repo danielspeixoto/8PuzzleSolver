@@ -19,6 +19,14 @@ class State:
         return True
     def is_goal(self):
         return self.grid == State.GOAL_GRID
+    def is_solvable(self):
+        s = self.to_string().replace("0", "")
+        inversions = 0
+        for i in range(0, 8):
+            for j in range(i+1, 8):
+                if s[i] > s[j]:
+                    inversions += 1
+        return inversions % 2 == 0
 
 def find_piece(grid, piece):
     for i in range(0, 3):
@@ -97,7 +105,7 @@ def solve(initial_state, detailed_output):
     explored_states = 0
     if initial_state.is_goal():
         final_node = initial_node
-    else:
+    elif initial_state.is_solvable():
         explored = set()
         frontier = [initial_node]
         while frontier:
