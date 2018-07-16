@@ -28,6 +28,13 @@ class State:
                     inversions += 1
         return inversions % 2 == 0
 
+def find_all_pieces(grid):
+    positions = [(-1, -1)]*9
+    for i in range(0, 3):
+        for j in range(0, 3):
+            positions[int(grid[i][j])] = (i, j)
+    return positions
+
 def find_piece(grid, piece):
     for i in range(0, 3):
         for j in range(0, 3):
@@ -56,18 +63,22 @@ def get_neighbors(state):
 
 def l0_distance(grid1, grid2):
     distance = 0
+    positions1 = find_all_pieces(grid1)
+    positions2 = find_all_pieces(grid2)
     for value in range(1, 9):
-        p1 = find_piece(grid1, value)
-        p2 = find_piece(grid2, value)
+        p1 = positions1[value]
+        p2 = positions2[value]
         if p1 != p2:
             distance += 1
     return distance
 
 def l1_distance(grid1, grid2):
     distance = 0
+    positions1 = find_all_pieces(grid1)
+    positions2 = find_all_pieces(grid2)
     for value in range(1, 9):
-        p1 = find_piece(grid1, value)
-        p2 = find_piece(grid2, value)
+        p1 = positions1[value]
+        p2 = positions2[value]
         distance += abs(p1[0] - p2[0]) + abs(p1[1] - p2[1])
     return distance
 
